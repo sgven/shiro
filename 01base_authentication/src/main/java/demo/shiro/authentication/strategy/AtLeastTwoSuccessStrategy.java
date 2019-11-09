@@ -1,4 +1,4 @@
-package demo.shiro.strategy;
+package demo.shiro.authentication.strategy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
