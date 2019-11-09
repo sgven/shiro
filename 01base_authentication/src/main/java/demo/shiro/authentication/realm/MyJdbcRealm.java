@@ -1,4 +1,4 @@
-package demo.shiro.realm;
+package demo.shiro.authentication.realm;
 
 //import demo.shiro.dto.UserDTO;
 //import demo.shiro.service.UserService;

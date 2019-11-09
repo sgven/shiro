@@ -1,12 +1,12 @@
-package demo.shiro.realm;
+package demo.shiro.authentication.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.Realm;
 
-public class MyRealm3 implements Realm {
+public class MyRealm implements Realm {
     @Override
     public String getName() {
-        return "myRealm3";
+        return "myRealm";
     }
 
     @Override
@@ -26,6 +26,6 @@ public class MyRealm3 implements Realm {
             throw new IncorrectCredentialsException(); // 密码错误
         }
         // 认证成功，返回一个AuthenticationInfo的实现
-        return new SimpleAuthenticationInfo(username + "@163.com", password, getName());// username，password，realmName
+        return new SimpleAuthenticationInfo(username, password, getName());// username，password，realmName
     }
 }

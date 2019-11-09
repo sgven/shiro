@@ -1,4 +1,4 @@
-package demo.shiro.realm;
+package demo.shiro.authentication.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.Realm;
