@@ -85,12 +85,18 @@
 			<version>1.1.3</version>
 		</dependency>
 
-		<!-- 跟踪tomcat源码————启动过程：
+		<!-- 跟踪tomcat源码————启动过程
+
+			如何跟踪tomcat源码？
 			1、依赖一个和使用的tomcat版本一致的jar包
 			2、因为运行时使用的是tomcat的lib目录下面的jar文件，所以此处的scope使用provided方式————
 			————（只在编译、测试阶段依赖，运行阶段由容器提供这个jar包，即classpath中会包含此jar包，而打的war包中不会包含此jar包）
-			3、download源码，方便在IDEA中跟踪调用链，在web.xml中配置的 IniWebEnvironment 或 EnvironmentLoaderListener断点
-			如在IniWebEnvironment.init()方法中line63断点，即可找到tomcat的调用，再往上找到tomcat启动的源码
+			3、download源码，方便在IDEA中跟踪调用链。
+
+			在web.xml中配置的 IniWebEnvironment 或 EnvironmentLoaderListener断点
+			如在IniWebEnvironment.init()方法中line63断点，即可找到tomcat的调用链，再往上找到tomcat启动的源码
+
+			或者我们直接从上往下debug，找到tomcat的启动类BootStrap.java，从main()方法开始断点
 		 -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
