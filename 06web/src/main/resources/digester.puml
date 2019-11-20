@@ -34,9 +34,11 @@ Driver --
 
 Digester ++
 Digester -> Rule : 循环 rule.body()
-Digester -> Rule : 循环 rule.end()
+Digester -> Rule : 反向循环 rule.end()
 Digester --
 Rule -> SetNextRule ++: end()
 SetNextRule -> SetNextRule : IntrospectionUtils.callMethod1(parent, methodName, child, paramType, classLoader)
+Rule -> ObjectCreateRule ++: end()
+ObjectCreateRule -> ObjectCreateRule : digester.pop()
 
 @enduml
