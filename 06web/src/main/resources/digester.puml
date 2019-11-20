@@ -1,0 +1,42 @@
+@startuml
+Digester -> Digester ++: parse()
+Digester -> XML11Configuration : parse()
+Digester --
+
+
+XML11Configuration ++
+XML11Configuration -> XMLDocumentFragmentScannerImpl : scanDocument()
+XML11Configuration --
+XMLDocumentFragmentScannerImpl ++
+XMLDocumentFragmentScannerImpl -> Driver : next()
+
+Driver ++
+Driver -> Digester : digester.startElement()
+
+Digester ++
+Digester -> Rule : 循环 rule.begin()
+Digester --
+Rule -> ObjectCreateRule ++: begin()
+ObjectCreateRule -> ObjectCreateRule : loadClass()
+ObjectCreateRule -> ObjectCreateRule : newInstance()
+ObjectCreateRule -> ObjectCreateRule : digester.push(instance)
+ObjectCreateRule --
+Rule -> SetPropertiesRule ++: begin()
+SetPropertiesRule -> SetPropertiesRule : Object top = digester.peek()
+SetPropertiesRule -> SetPropertiesRule : IntrospectionUtils.setProperty(top, name, value)
+SetPropertiesRule --
+
+XMLDocumentFragmentScannerImpl -> Driver : next()
+XMLDocumentFragmentScannerImpl --
+Driver -> Digester : digester.endElement()
+
+Driver --
+
+Digester ++
+Digester -> Rule : 循环 rule.body()
+Digester -> Rule : 循环 rule.end()
+Digester --
+Rule -> SetNextRule ++: end()
+SetNextRule -> SetNextRule : IntrospectionUtils.callMethod1(parent, methodName, child, paramType, classLoader)
+
+@enduml
