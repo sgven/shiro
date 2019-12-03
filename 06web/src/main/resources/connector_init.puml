@@ -1,0 +1,11 @@
+@startuml
+== init ==
+Connector -> Connector ++: init()
+Connector -> Connector ++: initInternal()
+Connector -> Connector : protocolHandler.setUtilityExecutor(server.getUtilityExecutor())
+Connector -> AbstractProtocol ++: protocolHandler.init()
+Connector --
+AbstractProtocol -> AbstractProtocol : endpoint.init()
+Connector --
+AbstractProtocol--
+@enduml

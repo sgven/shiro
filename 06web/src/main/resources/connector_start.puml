@@ -1,0 +1,22 @@
+@startuml
+
+== start ==
+
+Connector -> Connector ++: start()
+Connector -> Connector ++: startInternal()
+Connector -> AbstractProtocol ++: protocolHandler.start()
+AbstractProtocol -> AbstractProtocol : endpoint.start()
+AbstractProtocol -> NioEndpoint ++: startInternal()
+note left
+因为之前（Http、Ajp协议的handler）protocolHandler的属性
+endpoint都是实例化的 NioEndpoint，
+所以这里都是调用 NioEndpoint.startInternal()
+end note
+NioEndpoint -> NioEndpoint : endpoint.running = true
+NioEndpoint -> NioEndpoint : createExecutor()
+NioEndpoint -> NioEndpoint : pollerThread.start()
+NioEndpoint -> AbstractEndpoint ++: startAcceptorThread()
+AbstractEndpoint -> AbstractEndpoint : acceptor = new Acceptor<>(this)
+AbstractEndpoint -> AbstractEndpoint : Thread t = new Thread(acceptor, threadName)
+AbstractEndpoint -> AbstractEndpoint : t.start()
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+== digester: initialize object ==
+ConnectorCreateRule -> ConnectorCreateRule ++: begin()
+ConnectorCreateRule -> Connector ++: new Connector()
+Connector -> Connector: className="Http11NioProtocol or AjpNioProtocol"
+Connector -> Http11NioProtocol ++: p = new Http11NioProtocol()
+Connector -> AjpNioProtocol ++: p = new AjpNioProtocol()
+note left
+反射调用protocolHandler的构造函数，实例化p
+end note
+Connector -> Connector: this.protocolHandler = p;
+
+Http11NioProtocol -> AbstractProtocol ++: super(new NioEndpoint())
+AjpNioProtocol -> AbstractProtocol: super(new NioEndpoint())
+AbstractProtocol -> AbstractProtocol: this.endpoint = endpoint
+note left
+两个protocolHandler的endpoint
+实例化的都是 NioEndpoint
+end note
+@enduml
